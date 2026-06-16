@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.10" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2026 年度「シミュレーション特論」第 1 回レポート課題</title>
+  <style>
+
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+
+ul.task-list[class]{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+font-size: inherit;
+width: 0.8em;
+margin: 0 0.8em 0.2em -1.6em;
+vertical-align: middle;
+}
+.display.math{display: block; text-align: center; margin: 0.5rem auto;}
+
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+  <style type="text/css">@page {size: A4;margin: 25mm 20mm;}body {font-family: "Yu Gothic", "YuGothic", "Meiryo", sans-serif;font-size: 11pt;line-height: 1.6;color: #000;max-width: 100%;}h1 {font-size: 14pt;font-weight: bold;text-align: center;margin: 0 0 1.5em 0;border: none;}h2 {font-size: 12pt;font-weight: bold;margin: 1.5em 0 0.6em 0;border-bottom: 1px solid #333;padding-bottom: 0.2em;}table {border-collapse: collapse;width: 100%;margin: 0.5em 0 1em 0;font-size: 10pt;page-break-inside: avoid;}th, td {border: 1px solid #333;padding: 0.35em 0.6em;text-align: center;}th {background-color: #f0f0f0;font-weight: bold;}td:first-child,th:first-child {text-align: left;}p {margin: 0.5em 0;}code {font-family: "Consolas", "Courier New", monospace;font-size: 9pt;}pre {background-color: #f8f8f8;border: 1px solid #ccc;padding: 0.5em 0.8em;font-size: 9pt;line-height: 1.4;overflow-x: auto;page-break-inside: avoid;}pre code {background: none;border: none;padding: 0;}</style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">2026 年度「シミュレーション特論」第 1
+回レポート課題</h1>
+</header>
+<h2 id="システム情報">システム情報</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>計算ノード名</td>
+<td>ysnd00.edu.tut.ac.jp</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>AMD EPYC 9254 24-Core Processor（2ソケット、48コア）</td>
+</tr>
+<tr>
+<td>メモリ量</td>
+<td>250 GiB</td>
+</tr>
+</tbody>
+</table>
+<h2 id="グリッドサイズと性能omp_num_threads1--o2">【1】グリッドサイズと性能（OMP_NUM_THREADS=1,
+-O2）</h2>
+<p>コンパイルコマンド:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O2</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span></code></pre></div>
+<p>実行コマンド（例）:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span>1</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./bin/himeno_omp</span> S   <span class="co"># M, L も同様</span></span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Grid size</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S</td>
+<td>0.943088</td>
+<td>115</td>
+<td>2008.07</td>
+</tr>
+<tr>
+<td>M</td>
+<td>59.229043</td>
+<td>858</td>
+<td>1986.12</td>
+</tr>
+<tr>
+<td>L</td>
+<td>60.139006</td>
+<td>101</td>
+<td>1878.80</td>
+</tr>
+</tbody>
+</table>
+<h2 id="最適化オプションgrids-omp_num_threads1">【2】最適化オプション（Grid=S,
+OMP_NUM_THREADS=1）</h2>
+<p>コンパイルコマンド（測定ごとに最適化オプションを変えて再コンパイル）:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O0</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O1</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O2</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O3</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span></code></pre></div>
+<p>実行コマンド:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span>1</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./bin/himeno_omp</span> S</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-O0</td>
+<td>57.237897</td>
+<td>1461</td>
+<td>420.34</td>
+</tr>
+<tr>
+<td>-O1</td>
+<td>48.274247</td>
+<td>6630</td>
+<td>2261.68</td>
+</tr>
+<tr>
+<td>-O2</td>
+<td>49.703904</td>
+<td>6045</td>
+<td>2002.80</td>
+</tr>
+<tr>
+<td>-O3</td>
+<td>49.476148</td>
+<td>6031</td>
+<td>2007.36</td>
+</tr>
+</tbody>
+</table>
+<h2 id="openmp-スレッド数grids--o2">【3】OpenMP スレッド数（Grid=S,
+-O2）</h2>
+<p>コンパイルコマンド:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">icx</span> <span class="at">-fopenmp</span> <span class="at">-std</span><span class="op">=</span>gnu89 <span class="at">-O2</span> <span class="at">-o</span> bin/himeno_omp src/himenoBMTxpa.c</span></code></pre></div>
+<p>実行コマンド（例）:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">OMP_NUM_THREADS</span><span class="op">=</span>1   <span class="co"># 2, 4, 8 も同様</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./bin/himeno_omp</span> S</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Number of OpenMP threads</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>49.915502</td>
+<td>6075</td>
+<td>2004.21</td>
+</tr>
+<tr>
+<td>2</td>
+<td>40.914857</td>
+<td>10099</td>
+<td>4064.72</td>
+</tr>
+<tr>
+<td>4</td>
+<td>31.634604</td>
+<td>14898</td>
+<td>7755.30</td>
+</tr>
+<tr>
+<td>8</td>
+<td>17.128982</td>
+<td>14860</td>
+<td>14286.31</td>
+</tr>
+</tbody>
+</table>
+<h2 id="発展課題mpi-プロセス数grids">【発展課題】MPI
+プロセス数（Grid=S）</h2>
+<p>コンパイル手順:</p>
+<ol type="1">
+<li><code>Makefile.sample</code> を <code>Makefile</code>
+にコピーし、<code>CC = mpicc</code> を <code>CC = mpicc -cc=icx</code>
+に変更</li>
+<li><code>CFLAGS = -O3</code> を <code>CFLAGS = -O3 -std=gnu89</code>
+に変更</li>
+<li>プロセス数に応じて
+<code>./paramset.sh S &lt;x&gt; &lt;y&gt; &lt;z&gt;</code> を実行</li>
+<li><code>make</code> でビルド</li>
+</ol>
+<p>実行コマンド（例）:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load intelmpi/2025</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="ex">./paramset.sh</span> S 2 2 2</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">make</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ex">mpirun</span> <span class="at">-np</span> 8 ./bmt</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Number of MPI processes</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>58.945497</td>
+<td>77996</td>
+<td>21789.86</td>
+</tr>
+<tr>
+<td>2</td>
+<td>53.178672</td>
+<td>138258</td>
+<td>42813.98</td>
+</tr>
+<tr>
+<td>4</td>
+<td>47.673682</td>
+<td>250549</td>
+<td>86545.96</td>
+</tr>
+<tr>
+<td>8</td>
+<td>37.696982</td>
+<td>337259</td>
+<td>147329.53</td>
+</tr>
+</tbody>
+</table>
+<p>プロセス分割: 1→(1,1,1), 2→(2,1,1), 4→(2,2,1), 8→(2,2,2)</p>
+</body>
+</html>
