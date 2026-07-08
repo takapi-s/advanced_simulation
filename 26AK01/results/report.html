@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>2026 年度「シミュレーション特論」第 1 回レポート課題</title>
+  <style>@page {
+  size: A4;
+  margin: 25mm 20mm;
+}
+
+body {
+  font-family: "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: #000;
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 1.5em 0;
+  border: none;
+}
+
+h2 {
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 1.5em 0 0.6em 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.2em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5em 0 1em 0;
+  font-size: 10pt;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 0.35em 0.6em;
+  text-align: center;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+td:first-child,
+th:first-child {
+  text-align: left;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+code {
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 9pt;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 0.5em 0.8em;
+  font-size: 9pt;
+  line-height: 1.4;
+  overflow-x: auto;
+  page-break-inside: avoid;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+</style>
+</head>
+<body>
+  <h1>2026 年度「シミュレーション特論」第 1 回レポート課題</h1>
+  <h2>システム情報</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>計算ノード名</td>
+<td>ysnd00.edu.tut.ac.jp</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>AMD EPYC 9254 24-Core Processor（2ソケット、48コア）</td>
+</tr>
+<tr>
+<td>メモリ量</td>
+<td>250 GiB</td>
+</tr>
+</tbody>
+</table>
+<h2>【1】グリッドサイズと性能（OMP_NUM_THREADS=1, -O2）</h2>
+<p>課題1では最適化レベルの指定がないため、<code>-O2</code> で固定して評価を行った。</p>
+<p>コンパイルコマンド:</p>
+<pre><code class="language-bash">icx -fopenmp -std=gnu89 -O2 -o bin/himeno_omp src/himenoBMTxpa.c
+</code></pre>
+<p>実行コマンド（例）:</p>
+<pre><code class="language-bash">export OMP_NUM_THREADS=1
+./bin/himeno_omp S   # M, L も同様
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Grid size</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S</td>
+<td>0.943088</td>
+<td>115</td>
+<td>2008.07</td>
+</tr>
+<tr>
+<td>M</td>
+<td>59.229043</td>
+<td>858</td>
+<td>1986.12</td>
+</tr>
+<tr>
+<td>L</td>
+<td>60.139006</td>
+<td>101</td>
+<td>1878.80</td>
+</tr>
+</tbody>
+</table>
+<h2>【2】最適化オプション（Grid=S, OMP_NUM_THREADS=1）</h2>
+<p>コンパイルコマンド（測定ごとに最適化オプションを変えて再コンパイル）:</p>
+<pre><code class="language-bash">icx -fopenmp -std=gnu89 -O0 -o bin/himeno_omp src/himenoBMTxpa.c
+icx -fopenmp -std=gnu89 -O1 -o bin/himeno_omp src/himenoBMTxpa.c
+icx -fopenmp -std=gnu89 -O2 -o bin/himeno_omp src/himenoBMTxpa.c
+icx -fopenmp -std=gnu89 -O3 -o bin/himeno_omp src/himenoBMTxpa.c
+</code></pre>
+<p>実行コマンド:</p>
+<pre><code class="language-bash">export OMP_NUM_THREADS=1
+./bin/himeno_omp S
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-O0</td>
+<td>57.237897</td>
+<td>1461</td>
+<td>420.34</td>
+</tr>
+<tr>
+<td>-O1</td>
+<td>48.274247</td>
+<td>6630</td>
+<td>2261.68</td>
+</tr>
+<tr>
+<td>-O2</td>
+<td>49.703904</td>
+<td>6045</td>
+<td>2002.80</td>
+</tr>
+<tr>
+<td>-O3</td>
+<td>49.476148</td>
+<td>6031</td>
+<td>2007.36</td>
+</tr>
+</tbody>
+</table>
+<h2>【3】OpenMP スレッド数（Grid=S, -O2）</h2>
+<p>課題3ではスレッド数の影響を調べるため、最適化レベルは <code>-O2</code> で固定した。</p>
+<p>コンパイルコマンド:</p>
+<pre><code class="language-bash">icx -fopenmp -std=gnu89 -O2 -o bin/himeno_omp src/himenoBMTxpa.c
+</code></pre>
+<p>実行コマンド（例）:</p>
+<pre><code class="language-bash">export OMP_NUM_THREADS=1   # 2, 4, 8 も同様
+./bin/himeno_omp S
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Number of OpenMP threads</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>49.915502</td>
+<td>6075</td>
+<td>2004.21</td>
+</tr>
+<tr>
+<td>2</td>
+<td>40.914857</td>
+<td>10099</td>
+<td>4064.72</td>
+</tr>
+<tr>
+<td>4</td>
+<td>31.634604</td>
+<td>14898</td>
+<td>7755.30</td>
+</tr>
+<tr>
+<td>8</td>
+<td>17.128982</td>
+<td>14860</td>
+<td>14286.31</td>
+</tr>
+</tbody>
+</table>
+<h2>【発展課題】MPI プロセス数（Grid=S）</h2>
+<p>コンパイル手順:</p>
+<ol>
+<li><code>Makefile.sample</code> を <code>Makefile</code> にコピーし、<code>CC = mpicc</code> を <code>CC = mpicc -cc=icx</code> に変更</li>
+<li><code>CFLAGS = -O3</code> を <code>CFLAGS = -O3 -std=gnu89</code> に変更</li>
+<li>プロセス数に応じて <code>./paramset.sh S &lt;x&gt; &lt;y&gt; &lt;z&gt;</code> を実行</li>
+<li><code>make</code> でビルド</li>
+</ol>
+<p>実行コマンド（例）:</p>
+<pre><code class="language-bash">module load intel/2025
+module load intelmpi/2025
+./paramset.sh S 2 2 2
+make
+mpirun -np 8 ./bmt
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Number of MPI processes</th>
+<th>CPU time (sec.)</th>
+<th>Loop executed</th>
+<th>MFLOPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>58.945497</td>
+<td>77996</td>
+<td>21789.86</td>
+</tr>
+<tr>
+<td>2</td>
+<td>53.178672</td>
+<td>138258</td>
+<td>42813.98</td>
+</tr>
+<tr>
+<td>4</td>
+<td>47.673682</td>
+<td>250549</td>
+<td>86545.96</td>
+</tr>
+<tr>
+<td>8</td>
+<td>37.696982</td>
+<td>337259</td>
+<td>147329.53</td>
+</tr>
+</tbody>
+</table>
+<p>プロセス分割: 1→(1,1,1), 2→(2,1,1), 4→(2,2,1), 8→(2,2,2)</p>
+</body>
+</html>
