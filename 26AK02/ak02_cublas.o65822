@@ -1,0 +1,124 @@
+=== Node info ===
+yind00.edu.tut.ac.jp
+Wed Jul  8 10:54:56 JST 2026
+Wed Jul  8 10:54:57 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.124.06             Driver Version: 570.124.06     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100 80GB PCIe          Off |   00000000:CA:00.0 Off |                    0 |
+| N/A   38C    P0             66W /  300W |       1MiB /  81920MiB |     24%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+=== Build cuBLAS ===
+Timing: wall clock time
+Trials per n: 5
+
+########################################
+# n = 4000
+########################################
+=== Matrix multiplication C * C (cuBLAS) ===
+n = 4000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.019111 sec
+trial 2: 0.019000 sec
+trial 3: 0.018954 sec
+trial 4: 0.018959 sec
+trial 5: 0.018939 sec
+
+Summary:
+  average = 0.018993 sec
+  min     = 0.018939 sec
+  max     = 0.019111 sec
+  C[0][0] = 9.9870201908e+02 (sanity check)
+
+########################################
+# n = 8000
+########################################
+=== Matrix multiplication C * C (cuBLAS) ===
+n = 8000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.103211 sec
+trial 2: 0.103129 sec
+trial 3: 0.103288 sec
+trial 4: 0.103085 sec
+trial 5: 0.103019 sec
+
+Summary:
+  average = 0.103146 sec
+  min     = 0.103019 sec
+  max     = 0.103288 sec
+  C[0][0] = 2.0091657560e+03 (sanity check)
+
+########################################
+# n = 12000
+########################################
+=== Matrix multiplication C * C (cuBLAS) ===
+n = 12000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.303403 sec
+trial 2: 0.303074 sec
+trial 3: 0.303505 sec
+trial 4: 0.302438 sec
+trial 5: 0.303489 sec
+
+Summary:
+  average = 0.303182 sec
+  min     = 0.302438 sec
+  max     = 0.303505 sec
+  C[0][0] = 3.0031049652e+03 (sanity check)
+
+########################################
+# n = 16000
+########################################
+=== Matrix multiplication C * C (cuBLAS) ===
+n = 16000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.672542 sec
+trial 2: 0.674745 sec
+trial 3: 0.671413 sec
+trial 4: 0.673082 sec
+trial 5: 0.675693 sec
+
+Summary:
+  average = 0.673495 sec
+  min     = 0.671413 sec
+  max     = 0.675693 sec
+  C[0][0] = 4.0075610982e+03 (sanity check)
+
+########################################
+# n = 20000
+########################################
+=== Matrix multiplication C * C (cuBLAS) ===
+n = 20000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 1.244531 sec
+trial 2: 1.243855 sec
+trial 3: 1.248620 sec
+trial 4: 1.244607 sec
+trial 5: 1.251918 sec
+
+Summary:
+  average = 1.246706 sec
+  min     = 1.243855 sec
+  max     = 1.251918 sec
+  C[0][0] = 5.0057889572e+03 (sanity check)
+
+結果: results/raw/q_ext_cublas.log

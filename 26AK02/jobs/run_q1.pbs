@@ -1,0 +1,13 @@
+#!/bin/bash
+#PBS -N ak02_q1
+#PBS -q Eduq
+#PBS -l select=1:ncpus=8:mem=32gb
+#PBS -l walltime=0:30:00
+#PBS -j oe
+
+ulimit -c 0
+. /etc/profile
+module load intel/2025
+
+cd "$PBS_O_WORKDIR"
+bash scripts/run_q1.sh

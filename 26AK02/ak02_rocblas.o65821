@@ -1,0 +1,149 @@
+=== Node info ===
+ysnd00.edu.tut.ac.jp
+Wed Jul  8 10:55:10 JST 2026
+[37mROCk module version 6.10.5 is loaded[0m
+=====================    
+HSA System Attributes    
+=====================    
+Runtime Version:         1.15
+Runtime Ext Version:     1.7
+System Timestamp Freq.:  1000.000000MHz
+Sig. Max Wait Duration:  18446744073709551615 (0xFFFFFFFFFFFFFFFF) (timestamp count)
+Machine Model:           LARGE                              
+System Endianness:       LITTLE                             
+Mwaitx:                  DISABLED
+DMAbuf Support:          YES
+
+==========               
+HSA Agents               
+==========               
+*******                  
+Agent 1                  
+*******                  
+  Name:                    AMD EPYC 9254 24-Core Processor    
+
+
+========================================= ROCm System Management Interface =========================================
+=================================================== Concise Info ===================================================
+Device  Node  IDs              Temp    Power  Partitions          SCLK    MCLK     Fan  Perf  PwrCap  VRAM%  GPU%  
+[3m              (DID,     GUID)  (Edge)  (Avg)  (Mem, Compute, ID)                                                   [0m
+====================================================================================================================
+0       2     0x740f,   63484  36.0°C  43.0W  N/A, N/A, 0         800Mhz  1600Mhz  0%   auto  300.0W  0%     0%    
+1       3     0x740f,   42924  38.0°C  45.0W  N/A, N/A, 0         800Mhz  1600Mhz  0%   auto  300.0W  0%     0%    
+====================================================================================================================
+=============================================== End of ROCm SMI Log ================================================
+
+=== Build rocBLAS ===
+src/q_ext_rocblas.cpp:146:5: warning: ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+  146 |     hipFree(dA);
+      |     ^~~~~~~ ~~
+src/q_ext_rocblas.cpp:147:5: warning: ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+  147 |     hipFree(dC);
+      |     ^~~~~~~ ~~
+2 warnings generated when compiling for gfx90a.
+src/q_ext_rocblas.cpp:146:5: warning: ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+  146 |     hipFree(dA);
+      |     ^~~~~~~ ~~
+src/q_ext_rocblas.cpp:147:5: warning: ignoring return value of function declared with 'nodiscard' attribute [-Wunused-result]
+  147 |     hipFree(dC);
+      |     ^~~~~~~ ~~
+2 warnings generated when compiling for host.
+Timing: wall clock time
+Trials per n: 5
+
+########################################
+# n = 4000
+########################################
+=== Matrix multiplication C * C (rocBLAS) ===
+n = 4000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.021499 sec
+trial 2: 0.021974 sec
+trial 3: 0.009390 sec
+trial 4: 0.009494 sec
+trial 5: 0.009410 sec
+
+Summary:
+  average = 0.014354 sec
+  min     = 0.009390 sec
+  max     = 0.021974 sec
+  C[0][0] = 9.8687080452e+02 (sanity check)
+
+########################################
+# n = 8000
+########################################
+=== Matrix multiplication C * C (rocBLAS) ===
+n = 8000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.068025 sec
+trial 2: 0.068026 sec
+trial 3: 0.055347 sec
+trial 4: 0.067715 sec
+trial 5: 0.067550 sec
+
+Summary:
+  average = 0.065333 sec
+  min     = 0.055347 sec
+  max     = 0.068026 sec
+  C[0][0] = 1.9979601433e+03 (sanity check)
+
+########################################
+# n = 12000
+########################################
+=== Matrix multiplication C * C (rocBLAS) ===
+n = 12000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.181272 sec
+trial 2: 0.180082 sec
+trial 3: 0.179381 sec
+trial 4: 0.179653 sec
+trial 5: 0.183204 sec
+
+Summary:
+  average = 0.180718 sec
+  min     = 0.179381 sec
+  max     = 0.183204 sec
+  C[0][0] = 3.0084199660e+03 (sanity check)
+
+########################################
+# n = 16000
+########################################
+=== Matrix multiplication C * C (rocBLAS) ===
+n = 16000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.401097 sec
+trial 2: 0.393063 sec
+trial 3: 0.423798 sec
+trial 4: 0.401316 sec
+trial 5: 0.418609 sec
+
+Summary:
+  average = 0.407577 sec
+  min     = 0.393063 sec
+  max     = 0.423798 sec
+  C[0][0] = 4.0159660406e+03 (sanity check)
+
+########################################
+# n = 20000
+########################################
+=== Matrix multiplication C * C (rocBLAS) ===
+n = 20000, trials = 5
+Timing: wall clock time (CLOCK_MONOTONIC, includes H2D/D2H)
+
+trial 1: 0.965632 sec
+trial 2: 1.004054 sec
+trial 3: 0.976898 sec
+trial 4: 0.981604 sec
+trial 5: 0.968142 sec
+
+Summary:
+  average = 0.979266 sec
+  min     = 0.965632 sec
+  max     = 1.004054 sec
+  C[0][0] = 5.0061453642e+03 (sanity check)
+
+結果: results/raw/q_ext_rocblas.log

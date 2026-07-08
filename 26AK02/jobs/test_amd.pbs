@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -N test_amd
+#PBS -q Eduq
+#PBS -l select=1:ncpus=1:ngpus=1:mem=8gb
+#PBS -l walltime=0:10:00
+#PBS -j oe
+#PBS -v SINGULARITY_IMAGE=/common/Singularity_sif/prg_env_amd_2025.02.sif
+
+hostname
+which hipcc
+hipcc --version 2>&1 | head -3

@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N ak02_q2
+#PBS -q Eduq
+#PBS -l select=1:ncpus=8:mem=64gb
+#PBS -l walltime=2:00:00
+#PBS -j oe
+
+ulimit -c 0
+. /etc/profile
+module load intel/2025
+
+cd "$PBS_O_WORKDIR"
+export NTRIALS=5
+bash scripts/run_q2_benchmark.sh

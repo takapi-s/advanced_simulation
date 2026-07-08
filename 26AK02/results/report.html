@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>2026 年度「シミュレーション特論」第 2 回レポート課題</title>
+  <style>@page {
+  size: A4;
+  margin: 25mm 20mm;
+}
+
+body {
+  font-family: "Yu Gothic", "YuGothic", "Meiryo", sans-serif;
+  font-size: 11pt;
+  line-height: 1.6;
+  color: #000;
+  max-width: 100%;
+}
+
+h1 {
+  font-size: 14pt;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 0 1.5em 0;
+  border: none;
+}
+
+h2 {
+  font-size: 12pt;
+  font-weight: bold;
+  margin: 1.5em 0 0.6em 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 0.2em;
+}
+
+h3 {
+  font-size: 11pt;
+  font-weight: bold;
+  margin: 1em 0 0.4em 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0.5em 0 1em 0;
+  font-size: 10pt;
+  page-break-inside: avoid;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 0.35em 0.6em;
+  text-align: center;
+}
+
+th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+td:first-child,
+th:first-child {
+  text-align: left;
+}
+
+p {
+  margin: 0.5em 0;
+}
+
+code {
+  font-family: "Consolas", "Courier New", monospace;
+  font-size: 9pt;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border: 1px solid #ccc;
+  padding: 0.5em 0.8em;
+  font-size: 9pt;
+  line-height: 1.4;
+  overflow-x: auto;
+  page-break-inside: avoid;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+ul {
+  margin: 0.4em 0 0.8em 1.2em;
+}
+</style>
+</head>
+<body>
+  <h1>2026 年度「シミュレーション特論」第 2 回レポート課題</h1>
+  <h2>システム情報</h2>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ホスト名</td>
+<td>ydev06.edu.tut.ac.jp</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>Intel(R) Xeon(R) Gold 6430（8 コア、1 ソケット）</td>
+</tr>
+<tr>
+<td>メモリ量</td>
+<td>34 GiB</td>
+</tr>
+<tr>
+<td>コンパイラ</td>
+<td>Intel oneAPI <code>icx</code> 2025</td>
+</tr>
+<tr>
+<td>数値ライブラリ</td>
+<td>Intel MKL（LAPACK / CBLAS）</td>
+</tr>
+<tr>
+<td>測定時刻</td>
+<td>2026 年 7 月 8 日</td>
+</tr>
+</tbody>
+</table>
+<h2>【1】(1) 共役勾配法による連立一次方程式の求解</h2>
+<p>与えられた 5 次正方行列 <strong>A</strong> と右辺ベクトル <strong>b</strong> に対し，連立一次方程式 <strong>Ax = b</strong> を共役勾配法（CG 法）で解いた。</p>
+<h3>設定</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行列のサイズ</td>
+<td>5</td>
+</tr>
+<tr>
+<td>初期値 <strong>x</strong>⁽⁰⁾</td>
+<td>(0, 0, 0, 0, 0)ᵀ</td>
+</tr>
+<tr>
+<td>収束判定</td>
+<td>‖<strong>r</strong>‖₂ &lt; 1.0 × 10⁻¹²（<strong>r</strong> = <strong>b</strong> − <strong>Ax</strong>）</td>
+</tr>
+<tr>
+<td>最大反復回数</td>
+<td>1000</td>
+</tr>
+</tbody>
+</table>
+<h3>結果</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>収束回数</td>
+<td>5 回</td>
+</tr>
+<tr>
+<td>最終残差 ‖<strong>r</strong>‖₂</td>
+<td>1.89 × 10⁻¹⁴</td>
+</tr>
+</tbody>
+</table>
+<p>解ベクトル <strong>x</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>成分</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x₀</td>
+<td>2.0000000000</td>
+</tr>
+<tr>
+<td>x₁</td>
+<td>1.0000000000</td>
+</tr>
+<tr>
+<td>x₂</td>
+<td>5.0000000000</td>
+</tr>
+<tr>
+<td>x₃</td>
+<td>3.0000000000</td>
+</tr>
+<tr>
+<td>x₄</td>
+<td>4.0000000000</td>
+</tr>
+</tbody>
+</table>
+<p>すなわち <strong>x</strong> = (2, 1, 5, 3, 4)ᵀ である。残差ベクトル <strong>b</strong> − <strong>Ax</strong> の各成分は 10⁻¹⁴ 程度以下であり，正しい解が得られた。</p>
+<h2>【1】(2) 固有値問題</h2>
+<p>同じ行列 <strong>A</strong> に対する固有値問題 <strong>Ax</strong> = λ<strong>x</strong> を，LAPACK ルーチン <code>LAPACKE_dsyev</code>（対称行列の固有値分解）で解いた。固有ベクトルはユークリッドノルム（2-ノルム）が 1 となるよう正規化した。</p>
+<h3>固有値</h3>
+<table>
+<thead>
+<tr>
+<th>k</th>
+<th>λₖ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>9.1153892147 × 10⁻²</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1.8487388871</td>
+</tr>
+<tr>
+<td>2</td>
+<td>3.5216114816</td>
+</tr>
+<tr>
+<td>3</td>
+<td>3.8525533772</td>
+</tr>
+<tr>
+<td>4</td>
+<td>5.6859423620</td>
+</tr>
+</tbody>
+</table>
+<h3>固有ベクトル（2-ノルム = 1）</h3>
+<p><strong>k = 0</strong>（λ₀ = 9.12 × 10⁻²）:</p>
+<p>(−1.774 × 10⁻¹, 5.162 × 10⁻¹, −8.078 × 10⁻¹, 2.180 × 10⁻¹, −4.442 × 10⁻²)</p>
+<p><strong>k = 1</strong>（λ₁ = 1.849）:</p>
+<p>(−5.564 × 10⁻¹, 6.405 × 10⁻¹, 4.595 × 10⁻¹, −2.505 × 10⁻¹, 7.950 × 10⁻²)</p>
+<p><strong>k = 2</strong>（λ₂ = 3.522）:</p>
+<p>(5.876 × 10⁻¹, 3.065 × 10⁻¹, −1.212 × 10⁻¹, −6.121 × 10⁻¹, 4.141 × 10⁻¹)</p>
+<p><strong>k = 3</strong>（λ₃ = 3.853）:</p>
+<p>(5.600 × 10⁻¹, 4.774 × 10⁻¹, 3.244 × 10⁻¹, 4.481 × 10⁻¹, −3.905 × 10⁻¹)</p>
+<p><strong>k = 4</strong>（λ₄ = 5.686）:</p>
+<p>(1.437 × 10⁻², 3.858 × 10⁻², 1.279 × 10⁻¹, 5.605 × 10⁻¹, 8.172 × 10⁻¹)</p>
+<h2>【2】行列積 <strong>B</strong> × <strong>B</strong> の計算時間測定</h2>
+<p>n × n の行列 <strong>B</strong> の各要素に [0.0, 1.0] の一様乱数を代入し，行列積 <strong>C</strong> = <strong>B</strong> × <strong>B</strong> を Intel MKL の <code>cblas_dgemm</code> で計算した。数値型は <code>double</code> とした。</p>
+<h3>測定条件</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>測定する時間</td>
+<td><strong>wall clock time</strong>（<code>CLOCK_MONOTONIC</code>）</td>
+</tr>
+<tr>
+<td>各 n の試行回数</td>
+<td>5 回</td>
+</tr>
+<tr>
+<td>ウォームアップ</td>
+<td>各 n について計測前に 1 回 DGEMM を実行</td>
+</tr>
+<tr>
+<td>測定ホスト</td>
+<td>ydev06.edu.tut.ac.jp（窓口サーバ）</td>
+</tr>
+</tbody>
+</table>
+<h3>計測結果（秒）</h3>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>trial 1</th>
+<th>trial 2</th>
+<th>trial 3</th>
+<th>trial 4</th>
+<th>trial 5</th>
+<th>平均</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000</td>
+<td>0.034112</td>
+<td>0.034037</td>
+<td>0.034242</td>
+<td>0.032752</td>
+<td>0.034112</td>
+<td><strong>0.033851</strong></td>
+</tr>
+<tr>
+<td>4000</td>
+<td>0.243081</td>
+<td>0.240849</td>
+<td>0.266376</td>
+<td>0.237163</td>
+<td>0.237745</td>
+<td><strong>0.245043</strong></td>
+</tr>
+<tr>
+<td>6000</td>
+<td>0.813849</td>
+<td>0.797001</td>
+<td>0.798413</td>
+<td>0.812872</td>
+<td>0.789449</td>
+<td><strong>0.802317</strong></td>
+</tr>
+<tr>
+<td>8000</td>
+<td>1.874267</td>
+<td>1.864863</td>
+<td>1.876403</td>
+<td>1.862097</td>
+<td>1.865582</td>
+<td><strong>1.868642</strong></td>
+</tr>
+<tr>
+<td>10000</td>
+<td>3.696918</td>
+<td>3.652473</td>
+<td>3.684306</td>
+<td>3.692781</td>
+<td>3.682202</td>
+<td><strong>3.681736</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>計算時間のスケーリング解析</h3>
+<p>行列積の浮動小数点演算回数は O(n³) である。そこで，計算時間 T が</p>
+<p>T ∝ nᵖ</p>
+<p>と仮定し，両辺の対数をとって</p>
+<p>log T = p log n + c</p>
+<p>の形で最小二乗法による回帰を行い，指数 p を推定した。</p>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>推定された指数 p</td>
+<td><strong>2.91</strong></td>
+</tr>
+<tr>
+<td>決定係数 R²</td>
+<td>0.9999</td>
+</tr>
+</tbody>
+</table>
+<p>理論値 p = 3 に対し，実測値は p ≈ 2.91 であった。MKL の高度に最適化された DGEMM 実装や，小さい n におけるメモリ確保・初期化などの定数項の影響により，わずかに 3 より小さい値となったと考えられる。いずれにせよ n が増大するにつれ計算時間がおおよそ 3 乗で増加する傾向が確認できた。</p>
+<p>参考として，隣接する測定点の比から見た局所的な指数を示す。局所指数は</p>
+<p>p_local = log(T₂ / T₁) / log(n₂ / n₁)</p>
+<p>で定義した。</p>
+<table>
+<thead>
+<tr>
+<th>n₁ → n₂</th>
+<th>n₂ / n₁</th>
+<th>T₂ / T₁</th>
+<th>局所指数 p_local</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2000 → 4000</td>
+<td>2.0</td>
+<td>7.24</td>
+<td>2.86</td>
+</tr>
+<tr>
+<td>4000 → 6000</td>
+<td>1.5</td>
+<td>3.27</td>
+<td>2.93</td>
+</tr>
+<tr>
+<td>6000 → 8000</td>
+<td>1.33</td>
+<td>2.33</td>
+<td>2.96</td>
+</tr>
+<tr>
+<td>8000 → 10000</td>
+<td>1.25</td>
+<td>1.97</td>
+<td>2.97</td>
+</tr>
+</tbody>
+</table>
+<p>n が大きくなるほど局所指数は 3 に近づいており，漸近的に O(n³) のスケーリングに従うことがわかる。</p>
+<h2>【発展課題】GPU による行列積 <strong>C</strong> × <strong>C</strong> の計算時間測定</h2>
+<p>n × n の行列 <strong>C</strong> の各要素に [0.0, 1.0] の一様乱数を代入し，行列積 <strong>C</strong> × <strong>C</strong> を GPU 上で計算した。数値型は <code>double</code> とした。課題の指示に従い，<strong>cuBLAS（NVIDIA GPU）と rocBLAS（AMD GPU）の両方</strong>に取り組んだ。</p>
+<h3>計測環境</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>rocBLAS（AMD）</th>
+<th>cuBLAS（NVIDIA）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>計算ノード</td>
+<td>ysnd00.edu.tut.ac.jp</td>
+<td>yind00.edu.tut.ac.jp</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>AMD MI210 PCIe（64 GB）× 2</td>
+<td>NVIDIA A100 80GB PCIe × 1</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>AMD EPYC 9254</td>
+<td>Intel Xeon（IoT・AI 基盤）</td>
+</tr>
+<tr>
+<td>キュー</td>
+<td>Eduq</td>
+<td>iEduq</td>
+</tr>
+<tr>
+<td>コンテナ</td>
+<td>prg_env_amd_2025.02.sif</td>
+<td>prg_env_intel_2025.02.sif</td>
+</tr>
+<tr>
+<td>コンパイラ</td>
+<td><code>hipcc</code></td>
+<td><code>nvcc</code></td>
+</tr>
+</tbody>
+</table>
+<h3>測定条件</h3>
+<table>
+<thead>
+<tr>
+<th>項目</th>
+<th>値</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>測定する時間</td>
+<td><strong>wall clock time</strong>（<code>CLOCK_MONOTONIC</code>）</td>
+</tr>
+<tr>
+<td>各 n の試行回数</td>
+<td>5 回</td>
+</tr>
+<tr>
+<td>計測内容</td>
+<td>ホスト→デバイス転送，DGEMM 実行，同期，検算用に C[0][0] を 1 要素だけデバイス→ホスト転送</td>
+</tr>
+<tr>
+<td>n の値</td>
+<td>4000，8000，12000，16000，20000</td>
+</tr>
+</tbody>
+</table>
+<h3>rocBLAS の計測結果（秒）</h3>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>trial 1</th>
+<th>trial 2</th>
+<th>trial 3</th>
+<th>trial 4</th>
+<th>trial 5</th>
+<th>平均</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4000</td>
+<td>0.021499</td>
+<td>0.021974</td>
+<td>0.009390</td>
+<td>0.009494</td>
+<td>0.009410</td>
+<td><strong>0.014354</strong></td>
+</tr>
+<tr>
+<td>8000</td>
+<td>0.068025</td>
+<td>0.068026</td>
+<td>0.055347</td>
+<td>0.067715</td>
+<td>0.067550</td>
+<td><strong>0.065333</strong></td>
+</tr>
+<tr>
+<td>12000</td>
+<td>0.181272</td>
+<td>0.180082</td>
+<td>0.179381</td>
+<td>0.179653</td>
+<td>0.183204</td>
+<td><strong>0.180718</strong></td>
+</tr>
+<tr>
+<td>16000</td>
+<td>0.401097</td>
+<td>0.393063</td>
+<td>0.423798</td>
+<td>0.401316</td>
+<td>0.418609</td>
+<td><strong>0.407577</strong></td>
+</tr>
+<tr>
+<td>20000</td>
+<td>0.965632</td>
+<td>1.004054</td>
+<td>0.976898</td>
+<td>0.981604</td>
+<td>0.968142</td>
+<td><strong>0.979266</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>cuBLAS の計測結果（秒）</h3>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>trial 1</th>
+<th>trial 2</th>
+<th>trial 3</th>
+<th>trial 4</th>
+<th>trial 5</th>
+<th>平均</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4000</td>
+<td>0.019111</td>
+<td>0.019000</td>
+<td>0.018954</td>
+<td>0.018959</td>
+<td>0.018939</td>
+<td><strong>0.018993</strong></td>
+</tr>
+<tr>
+<td>8000</td>
+<td>0.103211</td>
+<td>0.103129</td>
+<td>0.103288</td>
+<td>0.103085</td>
+<td>0.103019</td>
+<td><strong>0.103146</strong></td>
+</tr>
+<tr>
+<td>12000</td>
+<td>0.303403</td>
+<td>0.303074</td>
+<td>0.303505</td>
+<td>0.302438</td>
+<td>0.303489</td>
+<td><strong>0.303182</strong></td>
+</tr>
+<tr>
+<td>16000</td>
+<td>0.672542</td>
+<td>0.674745</td>
+<td>0.671413</td>
+<td>0.673082</td>
+<td>0.675693</td>
+<td><strong>0.673495</strong></td>
+</tr>
+<tr>
+<td>20000</td>
+<td>1.244531</td>
+<td>1.243855</td>
+<td>1.248620</td>
+<td>1.244607</td>
+<td>1.251918</td>
+<td><strong>1.246706</strong></td>
+</tr>
+</tbody>
+</table>
+<h3>スケーリング解析</h3>
+<p>平均計算時間に対して log T = p log n + c の最小二乗回帰を行い，指数 p を推定した。</p>
+<table>
+<thead>
+<tr>
+<th>ライブラリ</th>
+<th>推定指数 p</th>
+<th>決定係数 R²</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rocBLAS（AMD MI210）</td>
+<td><strong>2.57</strong></td>
+<td>0.989</td>
+</tr>
+<tr>
+<td>cuBLAS（NVIDIA A100）</td>
+<td><strong>2.60</strong></td>
+<td>0.999</td>
+</tr>
+</tbody>
+</table>
+<p>理論的な演算量は O(n³) である。これに対し，実測の指数はいずれも p ≈ 2.6 となった。計測時間にはホストとデバイス間のデータ転送 O(n²) が含まれているため，特に n が小さいときは転送コストの影響が大きく，全体の指数 p が 3 より小さく見える。n = 12000 以降では隣接点の局所指数が 2.8〜3.0 付近に近づき，計算本体の O(n³) スケーリングが支配的になっている。</p>
+<h3>CPU（MKL）との比較（参考）</h3>
+<p>同一の行列サイズ n における平均計算時間を比較する（【2】の MKL 結果は n = 4000, 8000 のみ重複）。</p>
+<table>
+<thead>
+<tr>
+<th>n</th>
+<th>MKL DGEMM（CPU）</th>
+<th>rocBLAS（MI210）</th>
+<th>cuBLAS（A100）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4000</td>
+<td>0.245 sec</td>
+<td>0.014 sec</td>
+<td>0.019 sec</td>
+</tr>
+<tr>
+<td>8000</td>
+<td>1.869 sec</td>
+<td>0.065 sec</td>
+<td>0.103 sec</td>
+</tr>
+</tbody>
+</table>
+<p>GPU 版はいずれも CPU 版より高速であり，特に rocBLAS / MI210 では n = 8000 で約 29 倍の高速化が得られた。</p>
+<h2>生成 AI の使用</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cursor</td>
+<td>コーディング</td>
+</tr>
+</tbody>
+</table>
+<h2>参考・出典</h2>
+<ul>
+<li>Intel MKL DGEMM チュートリアル: https://github.com/nakatamaho/dgemm_tutorial/blob/main/03_pre_dgemm.md</li>
+<li>豊橋技科大 HPC クラスタ コンパイル方法: https://hpcportal.imc.tut.ac.jp/wiki/HowToCompile</li>
+</ul>
+</body>
+</html>

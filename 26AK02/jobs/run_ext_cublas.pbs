@@ -1,0 +1,14 @@
+#!/bin/bash
+#PBS -N ak02_cublas
+#PBS -q iEduq
+#PBS -l select=1:ncpus=1:ngpus=1:mem=32gb
+#PBS -l walltime=3:00:00
+#PBS -j oe
+#PBS -v SINGULARITY_IMAGE=/common/Singularity_sif/prg_env_intel_2025.02.sif
+
+ulimit -c 0
+. /etc/profile
+
+cd "$PBS_O_WORKDIR"
+export NTRIALS=5
+bash scripts/run_ext_cublas.sh
